@@ -15,6 +15,9 @@ namespace CC2DSharp
 
 		int parentnode = 1;
 
+		const int WALL = 1;
+		const int CHARACTER = 2;
+
 		public static CCScene Scene {
 			get {
 				var scene = new CCScene();
@@ -101,6 +104,7 @@ namespace CC2DSharp
 				shape.Elasticity=2f;
 				shape.Friction=1f;
 				space.AddStaticShape(shape);
+				shape.CollisionType = WALL;
 			}
 		}
 
@@ -109,6 +113,8 @@ namespace CC2DSharp
 			base.OnEnter();
 
 			InitPhysics ();
+
+			WaitForCollisions ();
 			
 			
 			var parent = new CCSpriteBatchNode("grossini_dance_atlas.png", 100);
@@ -116,6 +122,29 @@ namespace CC2DSharp
 			
 			AddNewSpriteAt(new PointF(200,200));
 			ScheduleUpdate ();
+		}
+
+		async void WaitForCollisions ()
+		{
+			using (var waiter = new AsyncCollisionWaiter (space, WALL, CHARACTER)) {
+				for(;;) {
+					var began = waiter.GetBeginAsync ();
+					var presolved = waiter.GetPreSolveAsync ();
+					var postsolved = waiter.GetPostSolveAsync ();
+					var separated = waiter.GetSeparateAsync ();
+		
+					await began;
+					//await began.ConfigureAwait (true);
+					Console.WriteLine ("BEGAN");
+					await presolved;
+					Console.WriteLine ("PRESOLVE");
+					await postsolved;
+					Console.WriteLine ("POSTSOLVE");
+					await separated;
+					Console.WriteLine ("SEPARATED");
+		
+				}
+			}
 		}
 
 		public override void Update (float delta)
@@ -159,7 +188,8 @@ namespace CC2DSharp
 
 			var shape = new PolygonShape(body, verts, PointF.Empty) {
 				Elasticity = .5f,
-				Friction =.5f
+				Friction =.5f,
+				CollisionType = CHARACTER,
 			};
 
 			space.Add(shape);
