@@ -105,6 +105,7 @@
     <Compile Include="IntroLayer.cs" />
     <Compile Include="PhysicsSprite.cs" />
     <Compile Include="AsyncCollisionWaiter.cs" />
+    <Compile Include="ZeroThreadTaskScheduler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

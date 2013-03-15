@@ -16,6 +16,7 @@ namespace CC2DSharp
 	{
 		Space space;
 		uint collisionTypeA, collisionTypeB;
+
 		public AsyncCollisionWaiter (Space space, uint collisionTypeA, uint collisionTypeB)
 		{
 			this.space = space;

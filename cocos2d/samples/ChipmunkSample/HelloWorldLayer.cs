@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using System.Drawing;
 
 using MonoTouch.Foundation;
@@ -126,6 +127,7 @@ namespace CC2DSharp
 
 		async void WaitForCollisions ()
 		{
+			TaskFactory factory = new TaskFactory (new ZeroThreadTaskScheduler());
 			using (var waiter = new AsyncCollisionWaiter (space, WALL, CHARACTER)) {
 				for(;;) {
 					var began = waiter.GetBeginAsync ();
@@ -133,7 +135,6 @@ namespace CC2DSharp
 					var postsolved = waiter.GetPostSolveAsync ();
 					var separated = waiter.GetSeparateAsync ();
 		
-					await began;
 					//await began.ConfigureAwait (true);
 					Console.WriteLine ("BEGAN");
 					await presolved;
