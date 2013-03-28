@@ -33,7 +33,7 @@ else
 endif
 
 
-all: ios
+all: ios libcocos2d-i386.selectors
 
 ios: Cocos2D.dll
 
@@ -119,9 +119,13 @@ mac/Extra.cs: Extra.cs
 	@mkdir -p mac
 	sed -e 's/MonoTouch\.UIKit/MonoMac\.AppKit/g' -e 's/MonoTouch/MonoMac/g' < $^ > $@
 
+#static analysis
+%.selectors: %.a
+	nm -P $< | grep "^[-+]\[.*\] t" > $@
+
 
 clean: 
-	-rm -f *.a *.dll *.dylib
+	-rm -f *.a *.dll *.dylib *.selectors
 
 clean-all: clean
 	-rm -rf $(PROJECT_ROOT) $(PROJECT_TGZ) ios mac xamarin

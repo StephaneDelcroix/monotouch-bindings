@@ -1,4 +1,5 @@
 *.dll
 *.a
 *.tar.gz
+*.selectors
 /ios/

@@ -8,7 +8,7 @@
     <ProjectGuid>{91400136-42A8-4C7E-886C-217AB352AF48}</ProjectGuid>
     <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>bindingtest</RootNamespace>
+    <RootNamespace>Cocos2D.Bindings</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>bindingtest</AssemblyName>
   </PropertyGroup>
@@ -81,6 +81,9 @@
     <Reference Include="Cocos2D">
       <HintPath>..\binding\Cocos2D.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -110,9 +113,16 @@
     <Compile Include="..\..\..\maccore\tests\bindings\ApiSignatureTest.cs">
       <Link>ApiSignatureTest.cs</Link>
     </Compile>
+    <Compile Include="BindingCompleteness.cs" />
+    <Compile Include="ApiCompleteness.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Content Include="tuffy_bold_italic-charmap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="..\binding\libcocos2d-i386.selectors">
+      <Link>Resources\libcocos2d-i386.selectors</Link>
+    </BundleResource>
   </ItemGroup>
 </Project>
