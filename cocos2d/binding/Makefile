@@ -33,9 +33,9 @@ else
 endif
 
 
-all: ios libcocos2d-i386.selectors
+all: ios 
 
-ios: Cocos2D.dll
+ios: Cocos2D.dll libcocos2d-i386.selectors
 
 osx: Cocos2DMacOS.dll
 

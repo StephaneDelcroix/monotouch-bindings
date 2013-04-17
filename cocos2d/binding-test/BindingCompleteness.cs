@@ -26,20 +26,20 @@ namespace Cocos2D.Bindings
 	{
 		public BindingCompleteness ()
 		{
-			LogProgress = true;
-
-			ContinueOnFailure = true;
+			//LogProgress = true;
+	
+			//ContinueOnFailure = true;
 		}
-
+	
 		protected override System.Reflection.Assembly Assembly {
 				get { return typeof (CCAccelAmplitude).Assembly; }
 		}
-
+	
 		protected override bool SkipCategory (string category)
 		{
 			return (new [] {"Deprecated"}).Contains (category);
 		}
-
+	
 		protected override IEnumerable<Selector> Selectors ()
 		{
 			var regex = new Regex (@"^[+-]\[([\w]+)(\(\w+\))? ([\w:]+)].*$");
@@ -49,13 +49,13 @@ namespace Cocos2D.Bindings
 					var match = regex.Match (line);
 					if (!match.Success)
 						continue;
-
+	
 					var klass = match.Groups[1].Value;
 					var category = match.Groups[2].Value;
 					if (!string.IsNullOrEmpty (category))
 						category = category.Substring (1, category.Length -2);
 					var selector = match.Groups[3].Value;
-
+	
 					yield return new Selector {Class = klass, Category = category, Sel = selector};
 				}
 			}
